@@ -54,7 +54,7 @@ export default function Layout({ children }) {
     );
   }
   return (
-    <div className="light-blue h-screen w-screen flex">
+    <div className="bg-blue-800 h-screen w-screen flex">
       <Nav />
 
       <div className="bg-white w-2/4 flex-grow mt-4 mb-4 mr-4 rounded-2xl">

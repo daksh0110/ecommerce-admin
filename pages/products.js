@@ -4,7 +4,7 @@ const products = () => {
   return (
     <Layout>
       <div className=" flex">
-        <button>Add a Product</button>
+        <button className="bg-blue-300 p-2 rounded-2xl ">Add a Product</button>
       </div>
     </Layout>
   );
