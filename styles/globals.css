@@ -31,3 +31,12 @@ body {
     text-wrap: balance;
   }
 }
+.light-blue {
+  background-color: #008dda;
+}
+.login-font {
+  font-family: "Lexend Exa", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+}
