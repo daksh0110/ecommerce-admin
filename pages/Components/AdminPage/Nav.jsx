@@ -1,24 +1,37 @@
 import Link from "next/link";
 import React from "react";
 import Image from "next/image";
+import { useRouter } from "next/router";
+
 import { useSession, signIn, signOut } from "next-auth/react";
 const Nav = () => {
+  const router = useRouter();
+  console.log(router);
+  const { pathname } = router;
   const { data: session } = useSession();
-  const nav_css = "m-3 mt-4 login-font flex";
+  const disabled_link = " mt-4 m login-font flex   w-full p-4";
+  const active_link = "bg-gradient-to-r from-blue-900 " + disabled_link;
   return (
     <div className="flex flex-col ">
       <nav className="mt-6 ">
         <Link href={"/"} className="m-4 mx-6 login-font text-xl">
           E-commerce Admin
         </Link>
-        <Link href="/products" className={nav_css}>
+        <Link
+          href="/products"
+          className={
+            pathname.includes("/products")
+              ? active_link
+              : disabled_link + " brightness-50 "
+          }
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             stroke-width="1.5"
             stroke="currentColor"
-            class="w-6 h-6 mr-2"
+            class="w-6 h-6 mx-3"
           >
             <path
               stroke-linecap="round"
@@ -28,14 +41,21 @@ const Nav = () => {
           </svg>
           Products
         </Link>
-        <a href={"/orders"} className={nav_css}>
+        <Link
+          href={"/orders"}
+          className={
+            pathname === "/orders"
+              ? active_link
+              : disabled_link + " brightness-50 "
+          }
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             stroke-width="1.5"
             stroke="currentColor"
-            class="w-6 h-6 mr-2"
+            class="w-6 h-6 mx-3"
           >
             <path
               stroke-linecap="round"
@@ -44,15 +64,22 @@ const Nav = () => {
             />
           </svg>
           Orders
-        </a>
-        <Link href="/orders" className={nav_css}>
+        </Link>
+        <Link
+          href="/settings"
+          className={
+            pathname.includes("/settings")
+              ? active_link
+              : disabled_link + " brightness-50 "
+          }
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             stroke-width="1.5"
             stroke="currentColor"
-            class="w-6 h-6 mr-2"
+            class="w-6 h-6 mx-3"
           >
             <path
               stroke-linecap="round"
