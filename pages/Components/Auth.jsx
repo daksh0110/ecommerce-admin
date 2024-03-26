@@ -2,8 +2,8 @@ import React from "react";
 import SignupFrom from "./SignupFrom";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { SessionProvider } from "next-auth/react";
-import { Dashboard } from "../AdminPage/Dashboard";
-import Nav from "../AdminPage/Nav";
+import { Dashboard } from "@/Dashboard";
+import Nav from "./Nav";
 import Googleicon from "./Googleicon";
 const Auth = () => {
   const { data: session } = useSession();

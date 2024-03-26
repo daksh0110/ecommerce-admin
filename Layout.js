@@ -1,9 +1,9 @@
 import React, { Children } from "react";
 
-import SignupFrom from "./Components/SignupFrom";
+import SignupFrom from "./Components/LoginPage/SignupFrom";
 import { useSession, signIn, signOut } from "next-auth/react";
-import Nav from "./Components/Nav";
-import Googleicon from "./Components/Googleicon";
+import Nav from "./Components/AdminPage/Nav";
+import Googleicon from "./Components/LoginPage/Googleicon";
 export default function Layout({ children }) {
   const { data: session } = useSession();
   if (!session) {

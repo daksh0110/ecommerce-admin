@@ -1,5 +1,5 @@
 import { useSession, signIn, signOut } from "next-auth/react";
-import Nav from "../AdminPage/Nav";
+
 import { useState } from "react";
 const Googleicon = () => {
   return (
@@ -12,9 +12,9 @@ const Googleicon = () => {
           <g
             id="Page-1"
             stroke="none"
-            stroke-width="1"
+            strokeWidth="1"
             fill="none"
-            fill-rule="evenodd"
+            fillRule="evenodd"
           >
             <g
               id="Dribbble-Light-Preview"

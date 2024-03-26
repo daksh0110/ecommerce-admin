@@ -11,8 +11,6 @@ export default function Document() {
         href="https://fonts.googleapis.com/css2?family=Lexend+Exa:wght@100..900&display=swap"
         rel="stylesheet"
       />
-      <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app-compat.js"></script>
-      <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore-compat.js"></script>
       <body>
         <Main />
         <NextScript />

@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import { useSession, signIn, signOut } from "next-auth/react";
 const Nav = () => {
   const router = useRouter();
-  console.log(router);
+
   const { pathname } = router;
   const { data: session } = useSession();
   const disabled_link = " mt-4 m login-font flex   w-full p-4";
