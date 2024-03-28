@@ -18,9 +18,9 @@ const Nav = () => {
           E-commerce Admin
         </Link>
         <Link
-          href="/products"
+          href="/Products"
           className={
-            pathname.includes("/products")
+            pathname.includes("/Products")
               ? active_link
               : disabled_link + " brightness-50 "
           }
@@ -31,7 +31,7 @@ const Nav = () => {
             viewBox="0 0 24 24"
             stroke-width="1.5"
             stroke="currentColor"
-            class="w-6 h-6 mx-3"
+            className="w-6 h-6 mx-3"
           >
             <path
               stroke-linecap="round"
@@ -55,7 +55,7 @@ const Nav = () => {
             viewBox="0 0 24 24"
             stroke-width="1.5"
             stroke="currentColor"
-            class="w-6 h-6 mx-3"
+            className="w-6 h-6 mx-3"
           >
             <path
               stroke-linecap="round"
@@ -79,7 +79,7 @@ const Nav = () => {
             viewBox="0 0 24 24"
             stroke-width="1.5"
             stroke="currentColor"
-            class="w-6 h-6 mx-3"
+            className="w-6 h-6 mx-3"
           >
             <path
               stroke-linecap="round"
@@ -91,7 +91,7 @@ const Nav = () => {
         </Link>
       </nav>
 
-      <div class="mt-auto mb-12 h-12  flex login-font">
+      <div className="mt-auto mb-12 h-12  flex login-font">
         <img
           className="rounded-full ml-4"
           src={session?.user?.image}
