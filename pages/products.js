@@ -2,18 +2,45 @@ import React, { useEffect, useState } from "react";
 import Layout from "./Layout";
 import Link from "next/link";
 import axios from "axios";
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
+import { useRouter } from "next/router";
 
 const Products = () => {
+  const router = useRouter();
   const [products, setProducts] = useState([]);
   useEffect(() => {
-    async function fetch() {
-      await axios.get("api/Products").then((response) => {
-        setProducts(response.data);
-      });
-    }
-    fetch();
+    fetchProduct();
   }, []);
 
+  async function fetchProduct() {
+    await axios.get("/api/Products").then((response) => {
+      setProducts(response.data);
+    });
+  }
+  const OnDelete = (id) => {
+    confirmAlert({
+      title: "Do you want to delete This Product?",
+
+      buttons: [
+        {
+          label: "Yes",
+          className: "  btn-red mx-auto",
+          onClick: async () => {
+            await axios.delete("/api/Products", { data: { id: id } });
+            fetchProduct();
+
+            console.log(id);
+          },
+        },
+        {
+          label: "No",
+          className: "btn-primary mx-auto ",
+        },
+      ],
+    });
+  };
+  console.log(products);
   return (
     <Layout>
       <div className=" flex flex-col">
@@ -31,12 +58,19 @@ const Products = () => {
           </thead>
           <tbody>
             {products.map((product, index) => (
-              <tr className="text-lg border" key={index}>
+              <tr className="text-lg border" key={product.id}>
                 <td className="border">{product.Title}</td>
                 <td className="">
                   <div className="flex justify-center mt-2">
-                    <button className="btn-primary">Edit</button>
-                    <button className="btn-red">Delete</button>
+                    <Link href={"/Products/edit/" + product.id}>
+                      <button className="btn-primary">Edit</button>
+                    </Link>
+                    <button
+                      className="btn-red"
+                      onClick={() => OnDelete(product.id)}
+                    >
+                      Delete
+                    </button>
                   </div>
                 </td>
               </tr>

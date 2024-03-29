@@ -1,5 +1,14 @@
 import axios from "axios";
-import { collection, addDoc, getFirestore, getDocs } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  doc,
+  getFirestore,
+  getDocs,
+  getDoc,
+  updateDoc,
+  deleteDoc,
+} from "firebase/firestore";
 import { db, storage } from "@/lib/dbconfig";
 import { ref } from "firebase/storage";
 export default async function handler(req, res) {
@@ -19,17 +28,49 @@ export default async function handler(req, res) {
     });
     console.log("Document written with ID: ", docRef.id);
     res.json("Submitted");
-  }
+  } else if (method === "GET") {
+    const id = req.query?.id;
 
-  if (method === "GET") {
-    const ProductData = [];
-    const querySnapshot = await getDocs(collection(db, "Products"));
-    querySnapshot.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
+    if (!id) {
+      const ProductData = [];
+      const querySnapshot = await getDocs(collection(db, "Products"));
+      querySnapshot.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
 
-      ProductData.push(doc.data());
-    });
+        ProductData.push({ ...doc.data(), id: doc.id });
+      });
 
-    res.json(ProductData);
+      res.json(ProductData);
+    } else {
+      const docRef = doc(db, "Products", id);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        console.log("Document data:", docSnap.data());
+        res.json(docSnap.data());
+      } else {
+        console.log("No such document!");
+      }
+    }
+  } else if (method === "PUT") {
+    const { Title, Description, Price, Images } = req.body;
+    const id = req.query.id;
+    const docRef = doc(db, "Products", id);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      const existingData = docSnap.data();
+      const prevImages = existingData.Images;
+
+      await updateDoc(docRef, {
+        Title: Title,
+        Description: Description,
+        Price: Price,
+        Images: [...prevImages, ...Images],
+      });
+    }
+  } else if (method === "DELETE") {
+    const id = req.body.id;
+    await deleteDoc(doc(db, "Products", id));
+    res.json("Deleted");
   }
 }

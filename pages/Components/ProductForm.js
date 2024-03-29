@@ -4,18 +4,32 @@ import Image from "next/image";
 import axios from "axios";
 
 import { useRouter } from "next/router";
-const ProductForm = () => {
-  const [Title, setTitle] = useState("");
-  const [Description, SetDiscription] = useState("");
-  const [Price, setPrice] = useState(0);
-  const [Images, Setimages] = useState([]);
+const ProductForm = ({
+  id,
+  Title: existingTitle,
+  Description: existingDescription,
+  Price: existingPrice,
+  Images: existingImages,
+}) => {
+  const [Title, setTitle] = useState(existingTitle || "");
+  const [Description, SetDiscription] = useState(existingDescription || "");
+  const [Price, setPrice] = useState(existingPrice || 0);
+  const [Images, Setimages] = useState(existingImages || []);
   const Data = { Title, Description, Price, Images };
   const router = useRouter();
   const onSubmit = (event) => {
-    console.log("Submitted");
-    axios.post("/api/Products", Data).then(function (response) {
-      console.log(response);
-    });
+    console.log(id);
+    if (id) {
+      axios.put("/api/Products/?id=" + id, Data).then((response) => {
+        console.log(response.data);
+      });
+    } else {
+      console.log("Submitted");
+      axios.post("/api/Products", Data).then(function (response) {
+        console.log(response);
+      });
+    }
+
     event.preventDefault();
     router.push("/Products");
   };
