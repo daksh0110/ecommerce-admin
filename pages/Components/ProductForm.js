@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Layout from "../Layout";
 import Image from "next/image";
 import axios from "axios";
+import Loading from "./Loading";
 
 import { useRouter } from "next/router";
 const ProductForm = ({
@@ -15,6 +16,7 @@ const ProductForm = ({
   const [Description, SetDiscription] = useState(existingDescription || "");
   const [Price, setPrice] = useState(existingPrice || 0);
   const [Images, Setimages] = useState(existingImages || []);
+  const [isUploading, setisUploading] = useState(false);
   const Data = { Title, Description, Price, Images };
   const router = useRouter();
   const onSubmit = (event) => {
@@ -37,10 +39,13 @@ const ProductForm = ({
   const handleChange = async (event) => {
     const file = event.target.files[0];
     const formData = new FormData();
+
     formData.append("file", file);
+    setisUploading(true);
     const response = await axios.post("/api/upload", formData);
 
     Setimages((prevImages) => [...prevImages, response.data]);
+    setisUploading(false);
   };
   return (
     <form className=" flex flex-col">
@@ -70,6 +75,9 @@ const ProductForm = ({
         }}
         className="border-2 rounded-lg resize-y"
       />
+      <label className="p-2 text-2xl  font-bold text-blue-800 login-font">
+        Category
+      </label>
 
       <label className="p-2 text-2xl  font-bold text-blue-800 login-font">
         Images
@@ -78,7 +86,7 @@ const ProductForm = ({
       {Images.length === 0 ? (
         <h1 className="pb-1 flex">No Images are present</h1>
       ) : (
-        <div className="flex ">
+        <div className="flex flex-wrap ">
           {Images.map((image, index) => (
             <img
               key={index}
@@ -87,6 +95,11 @@ const ProductForm = ({
               className="my-2 mr-3 h-24 w-24"
             />
           ))}
+          {isUploading && (
+            <div className=" h-24 w-24">
+              <Loading />
+            </div>
+          )}
         </div>
       )}
 
