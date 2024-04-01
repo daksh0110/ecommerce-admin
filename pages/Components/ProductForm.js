@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../Layout";
 import Image from "next/image";
 import axios from "axios";
@@ -11,25 +11,34 @@ const ProductForm = ({
   Description: existingDescription,
   Price: existingPrice,
   Images: existingImages,
+  Category: existingCategory,
 }) => {
   const [Title, setTitle] = useState(existingTitle || "");
   const [Description, SetDiscription] = useState(existingDescription || "");
   const [Price, setPrice] = useState(existingPrice || 0);
   const [Images, Setimages] = useState(existingImages || []);
   const [isUploading, setisUploading] = useState(false);
-  const Data = { Title, Description, Price, Images };
+  const [SelectedCategory, Setselectedcategory] = useState(
+    existingCategory || null
+  );
+  const [Categories, SetCategories] = useState(null);
+  const Data = { Title, Description, Price, Images, SelectedCategory };
   const router = useRouter();
+
+  useEffect(() => {
+    fetchCategory();
+  }, []);
+
+  const fetchCategory = () => {
+    axios.get("/api/Categories").then((response) => {
+      SetCategories(response.data);
+    });
+  };
   const onSubmit = (event) => {
-    console.log(id);
     if (id) {
-      axios.put("/api/Products/?id=" + id, Data).then((response) => {
-        console.log(response.data);
-      });
+      axios.put("/api/Products/?id=" + id, Data).then((response) => {});
     } else {
-      console.log("Submitted");
-      axios.post("/api/Products", Data).then(function (response) {
-        console.log(response);
-      });
+      axios.post("/api/Products", Data).then(function (response) {});
     }
 
     event.preventDefault();
@@ -78,6 +87,27 @@ const ProductForm = ({
       <label className="p-2 text-2xl  font-bold text-blue-800 login-font">
         Category
       </label>
+      <select onChange={(e) => Setselectedcategory(e.target.value)}>
+        {Categories &&
+          Categories.map((category, index) => (
+            <option
+              key={index}
+              selected={category.id === SelectedCategory}
+              value={category.id}
+            >
+              {category.name}
+            </option>
+          ))}
+        {SelectedCategory === null ? (
+          <option value="" selected>
+            Please Choose any Category
+          </option>
+        ) : (
+          <option value={SelectedCategory}>{SelectedCategory}</option>
+        )}
+      </select>
+
+      {console.log(Categories)}
 
       <label className="p-2 text-2xl  font-bold text-blue-800 login-font">
         Images
