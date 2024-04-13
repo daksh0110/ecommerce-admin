@@ -49,7 +49,7 @@ const Products = () => {
             Add a Product
           </button>
         </Link>
-        <table class="table-auto">
+        <table class="table-auto w-full">
           <thead>
             <tr className="text-xl">
               <th>Products</th>

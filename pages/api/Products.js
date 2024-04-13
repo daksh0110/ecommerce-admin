@@ -8,9 +8,11 @@ import {
   getDoc,
   updateDoc,
   deleteDoc,
+  serverTimestamp,
 } from "firebase/firestore";
 import { db, storage } from "@/lib/dbconfig";
 import { ref } from "firebase/storage";
+
 export default async function handler(req, res) {
   const { method } = req;
 
@@ -25,6 +27,7 @@ export default async function handler(req, res) {
       Price: Price,
       Images: [...Images],
       Category: SelectedCategory,
+      createdAt: serverTimestamp(),
     });
 
     res.json("Submitted");
@@ -55,21 +58,23 @@ export default async function handler(req, res) {
     const id = req.query.id;
     const docRef = doc(db, "Products", id);
     const docSnap = await getDoc(docRef);
+
     if (docSnap.exists()) {
       const existingData = docSnap.data();
-      const prevImages = existingData.Images;
+      const prevImages = existingData.Images || [];
 
+      // Filter out duplicate links
+      const uniqueImages = [...new Set([...prevImages, ...Images])];
+
+      // Update document with unique links
       await updateDoc(docRef, {
         Title: Title,
         Description: Description,
         Price: Price,
-        Images: [...prevImages, ...Images],
+        Images: uniqueImages,
         Category: SelectedCategory,
+        createdAt: serverTimestamp(),
       });
     }
-  } else if (method === "DELETE") {
-    const id = req.body.id;
-    await deleteDoc(doc(db, "Products", id));
-    res.json("Deleted");
   }
 }

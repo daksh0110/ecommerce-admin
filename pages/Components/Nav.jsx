@@ -67,9 +67,9 @@ const Nav = () => {
           Categories
         </Link>
         <Link
-          href={"/orders"}
+          href={"/Orders"}
           className={
-            pathname === "/orders"
+            pathname === "/Orders"
               ? active_link
               : disabled_link + " brightness-50 "
           }
@@ -91,7 +91,7 @@ const Nav = () => {
           Orders
         </Link>
         <Link
-          href="/settings"
+          href="/Settings"
           className={
             pathname.includes("/settings")
               ? active_link
