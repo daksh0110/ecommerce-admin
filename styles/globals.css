@@ -48,3 +48,18 @@ body {
 .btn-primary {
   @apply text-white bg-blue-700 hover:bg-blue-800  focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-700 dark:hover:bg-blue-700;
 }
+.table-container {
+  position: relative;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-color: #fff; /* Adjust as needed */
+}
+
+.table-body {
+  max-height: calc(100vh - 200px); /* Adjust as needed */
+  overflow-y: auto;
+}
