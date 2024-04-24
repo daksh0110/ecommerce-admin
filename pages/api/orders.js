@@ -5,7 +5,7 @@ export default async function Handler(req, res) {
   const Orders = [];
   const collectionRef = collection(db, "Orders");
   const querySnapshot = await getDocs(
-    query(collectionRef, orderBy("createdAt"))
+    query(collectionRef, orderBy("createdAt", "desc"))
   );
   querySnapshot.forEach((doc) => {
     Orders.push({ ...doc.data(), id: doc.id });

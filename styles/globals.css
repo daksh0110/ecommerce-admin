@@ -2,64 +2,45 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+img{
+    max-height: 100%;
 }
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+input, textarea, select{
+    @apply border border-gray-200 rounded-sm px-1 w-full py-2 px-3;
+    @apply mb-2;
 }
-
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+input:focus, textarea:focus, select:focus{
+    @apply border-blue-900;
 }
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+h1{
+    @apply text-gray-800 mb-4 text-xl;
 }
-.light-blue {
-  background-color: #008dda;
+label{
+    @apply text-gray-600 text-sm;
 }
-.login-font {
-  font-family: "Lexend Exa", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: <weight>;
-  font-style: normal;
+.btn-primary{
+    @apply bg-primary text-white px-4 py-1 rounded-sm shadow-sm;
 }
-
-.btn-red {
-  @apply focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700;
+table.basic{
+    @apply w-full bg-white rounded-sm shadow-md;
 }
-
-.btn-primary {
-  @apply text-white bg-blue-700 hover:bg-blue-800  focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-700 dark:hover:bg-blue-700;
+table.basic thead tr td,
+table.basic thead tr th
+{
+    @apply text-sm text-gray-600 uppercase border-b border-gray-200 px-4 py-2;
 }
-.table-container {
-  position: relative;
+table.basic tr td{
+    @apply px-4 py-1;
 }
-
-.header {
-  position: sticky;
-  top: 0;
-  z-index: 1;
-  background-color: #fff; /* Adjust as needed */
+table.basic a{
+    @apply px-4 rounded-sm inline-flex mx-1 items-center gap-1 text-sm py-1;
 }
-
-.table-body {
-  max-height: calc(100vh - 200px); /* Adjust as needed */
-  overflow-y: auto;
+.btn-default, .btn-red{
+    @apply px-4 py-1 rounded-md;
+}
+.btn-red{
+    @apply bg-red-200 text-red-600 px-4 py-1 rounded-sm shadow-sm;
+}
+.btn-default{
+    @apply bg-white text-gray-800 px-4 py-1 rounded-sm border border-gray-200 shadow-sm;
 }

@@ -17,7 +17,8 @@ export default async function handler(req, res) {
   const { method } = req;
 
   if (method === "POST") {
-    const { Title, Description, Price, Images, SelectedCategory } = req.body;
+    const { Title, Description, Price, Images, category, properties } =
+      req.body;
 
     // Add a new document with a generated id.
 
@@ -26,7 +27,8 @@ export default async function handler(req, res) {
       Description: Description,
       Price: Price,
       Images: [...Images],
-      Category: SelectedCategory,
+      Category: category,
+      properties: properties,
       createdAt: serverTimestamp(),
     });
 
@@ -54,8 +56,10 @@ export default async function handler(req, res) {
       }
     }
   } else if (method === "PUT") {
-    const { Title, Description, Price, Images, SelectedCategory } = req.body;
+    const { Title, Description, Price, Images, category, properties } =
+      req.body;
     const id = req.query.id;
+
     const docRef = doc(db, "Products", id);
     const docSnap = await getDoc(docRef);
 
@@ -72,9 +76,12 @@ export default async function handler(req, res) {
         Description: Description,
         Price: Price,
         Images: uniqueImages,
-        Category: SelectedCategory,
+        Category: category,
+        properties: properties,
         createdAt: serverTimestamp(),
       });
     }
+
+    res.json("done");
   }
 }

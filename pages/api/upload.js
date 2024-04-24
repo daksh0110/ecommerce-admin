@@ -3,6 +3,7 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "@/lib/dbconfig";
 import fs from "fs";
 import { useRouter } from "next/router";
+import { v4 as uuidv4 } from "uuid";
 
 export default async function handle(req, res) {
   const imagesURL = [];
@@ -16,10 +17,9 @@ export default async function handle(req, res) {
         const fileObjects = files[key];
         for (const fileObject of fileObjects) {
           console.log(fileObject.originalFilename);
-          const storageRef = ref(
-            storage,
-            `/images/` + title + `/` + `${fileObject.originalFilename}`
-          );
+          const uniqueFilename = uuidv4();
+          console.log("Generated filename:", uniqueFilename);
+          const storageRef = ref(storage, `/images/` + `${uniqueFilename}`);
 
           const metadata = {
             contentType: "image/jpeg",
@@ -29,12 +29,7 @@ export default async function handle(req, res) {
             .then((snapshot) => {
               console.log("Uploaded a blob or file!");
 
-              return getDownloadURL(
-                ref(
-                  storage,
-                  `/images/` + title + `/` + `${fileObject.originalFilename}`
-                )
-              );
+              return getDownloadURL(ref(storageRef));
             })
             .then((url) => {
               console.log("URL==" + url);
