@@ -83,7 +83,7 @@ export default function ProductForm({
   if (categories.length > 0 && category) {
     let catInfo = categories.find(({ id }) => id === category);
 
-    if (catInfo.properties) {
+    if (catInfo?.properties) {
       propertiesToFill.push(...catInfo?.properties);
     }
     while (catInfo?.parent?.id) {
@@ -179,7 +179,7 @@ export default function ProductForm({
         value={Description}
         onChange={(ev) => setDescription(ev.target.value)}
       />
-      <label>Price (in USD)</label>
+      <label>Price (in Rupees)</label>
       <input
         type="number"
         placeholder="price"
