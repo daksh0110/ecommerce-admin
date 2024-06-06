@@ -27,7 +27,6 @@ export default async function handler(req, res) {
     } else {
       const docRef = await addDoc(collection(db, "Categories"), {
         name: name,
-        parent: parentData,
       });
     }
 
@@ -45,23 +44,31 @@ export default async function handler(req, res) {
     await deleteDoc(doc(db, "Categories", id));
     res.json("ok");
   } else if (method === "PUT") {
+    console.log("======");
+
     const { name, parentCategory, id, properties } = req.body;
+
     let parentData = {};
     const docRef = doc(db, "Categories", id);
-    if (parentCategory) {
+    if (parentCategory && !properties) {
       const categoryRef = doc(db, "Categories", parentCategory);
       const categorySnap = await getDoc(categoryRef);
 
       await updateDoc(docRef, {
         name: name,
         parent: { ...categorySnap.data(), id: categorySnap.id },
+      });
+    } else if (!parentCategory && properties) {
+      await updateDoc(docRef, {
+        name: name,
+        parent: null,
         properties: properties,
       });
     } else {
       await updateDoc(docRef, {
         name: name,
-        parent: parentData,
-        properties: properties,
+        parent: null,
+        properties: null,
       });
     }
 

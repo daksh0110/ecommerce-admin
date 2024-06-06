@@ -83,5 +83,10 @@ export default async function handler(req, res) {
     }
 
     res.json("done");
+  } else if (method === "DELETE") {
+    const id = req.query.id;
+    console.log(id);
+    await deleteDoc(doc(db, "Products", id));
+    res.json("Deleted");
   }
 }

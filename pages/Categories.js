@@ -23,7 +23,7 @@ export default function Categories() {
     const data = {
       name,
       parentCategory,
-      properties: properties.map((p) => ({
+      properties: properties?.map((p) => ({
         name: p.name,
         values: p.values.split(","),
       })),
