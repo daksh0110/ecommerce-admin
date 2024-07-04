@@ -1,13 +1,16 @@
 import Layout from "@/components/Layout";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Spinner from "@/components/Spinner";
 
 export default function OrdersPage() {
   const [orders, setOrders] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
+    setIsLoading(true);
     axios.get("/api/orders").then((response) => {
       setOrders(response.data);
-      console.log(response.data);
+      setIsLoading(false);
     });
   }, []);
   return (
@@ -23,6 +26,15 @@ export default function OrdersPage() {
           </tr>
         </thead>
         <tbody>
+          {isLoading && (
+            <tr>
+              <td colSpan={3}>
+                <div className="py-4">
+                  <Spinner fullWidth={true} />
+                </div>
+              </td>
+            </tr>
+          )}
           {orders.length > 0 &&
             orders.map((order) => (
               <tr key={order.id}>
