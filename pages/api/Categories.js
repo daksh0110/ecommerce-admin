@@ -9,9 +9,11 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { db } from "@/lib/dbconfig";
+import { getServerSession } from "next-auth";
+import { authOptions, isAdminRequest } from "./auth/[...nextauth]";
 export default async function handler(req, res) {
   const { method } = req;
-
+  await isAdminRequest(req, res);
   if (method === "POST") {
     const { name, parentCategory, properties } = req.body;
     let parentData = {};

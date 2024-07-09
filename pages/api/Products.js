@@ -12,9 +12,11 @@ import {
 } from "firebase/firestore";
 import { db, storage } from "@/lib/dbconfig";
 import { ref } from "firebase/storage";
+import { isAdminRequest } from "./auth/[...nextauth]";
 
 export default async function handler(req, res) {
   const { method } = req;
+  await isAdminRequest(req, res);
 
   if (method === "POST") {
     const { Title, Description, Price, Images, category, properties } =

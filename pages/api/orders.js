@@ -11,6 +11,5 @@ export default async function Handler(req, res) {
     Orders.push({ ...doc.data(), id: doc.id });
   });
 
-  console.log(Orders);
   res.json(Orders);
 }
