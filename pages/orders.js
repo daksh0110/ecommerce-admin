@@ -16,7 +16,7 @@ export default function OrdersPage() {
   return (
     <Layout>
       <h1>Orders</h1>
-      <table className="basic">
+      <table className="basic text-center">
         <thead>
           <tr>
             <th>Date</th>
@@ -41,7 +41,7 @@ export default function OrdersPage() {
                 <td>
                   {order.createdAt &&
                     new Date(order.createdAt.seconds * 1000).toLocaleDateString(
-                      "en-US"
+                      "en-IN"
                     )}
                 </td>
                 <td className={order.paid ? "text-green-600" : "text-red-600"}>

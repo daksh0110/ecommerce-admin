@@ -68,9 +68,9 @@ export default function Nav({ show }) {
           Products
         </Link>
         <Link
-          href={"/categories"}
+          href={"/Categories"}
           className={
-            pathname.includes("/categories") ? activeLink : inactiveLink
+            pathname.includes("/Categories") ? activeLink : inactiveLink
           }
         >
           <svg

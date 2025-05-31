@@ -28,7 +28,7 @@ export default function ProductForm({
   const router = useRouter();
   useEffect(() => {
     setCategoriesLoading(true);
-    axios.get("/api/categories").then((result) => {
+    axios.get("/api/Categories").then((result) => {
       setCategories(result.data);
       setCategoriesLoading(false);
     });

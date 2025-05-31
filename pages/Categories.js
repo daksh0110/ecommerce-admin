@@ -15,7 +15,7 @@ export default function Categories() {
   }, []);
   function fetchCategories() {
     setIsLoading(true);
-    axios.get("/api/categories").then((result) => {
+    axios.get("/api/Categories").then((result) => {
       setCateogries(result.data);
       setIsLoading(false);
     });
